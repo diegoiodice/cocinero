@@ -1,4 +1,4 @@
-package com.cocinero;
+package com.cocinero.infrastructure;
 
 import io.vertx.core.Vertx;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,15 +11,14 @@ import javax.annotation.PostConstruct;
 public class Application {
 
 	@Autowired
-	private StaticServer staticServer;
+	private Server server;
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(Application.class, args);
 	}
 
 	@PostConstruct
 	public void deployVerticle() {
-		Vertx.vertx().deployVerticle(staticServer);
+		Vertx.vertx().deployVerticle(server);
 	}
 }
