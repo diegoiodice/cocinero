@@ -99,6 +99,11 @@ public class UserRepositoryImplITest {
         assertThat(userRepository.findByEmail(user.getEmail())).isNotNull();
     }
 
+    @Test
+    public void testFindByEmail_notFound() throws Exception {
+        assertThat(userRepository.findByEmail("user@gmail.com")).isNull();
+    }
+
     @Configuration
     @ComponentScan("com.cocinero.infrastructure.repository")
     @EnableMongoRepositories("com.cocinero.infrastructure.repository.mongo")
