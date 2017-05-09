@@ -15,12 +15,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,18 +31,11 @@ import static org.assertj.core.api.Assertions.*;
 @Slf4j
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {UserRepositoryImplITest.UserRepositoryConfig.class,AppConfiguration.class})
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class UserRepositoryImplITest {
 
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private MongoTemplate template;
-
-    @Before
-    public void setUp(){
-        template.dropCollection("users");
-    }
 
     @Test
     public void testCreate() throws Exception {
@@ -75,12 +70,21 @@ public class UserRepositoryImplITest {
 
     @Test
     public void testSave() throws Exception {
-
+        User user = User.builder().email("user@mail.com").password("1234").build();
+        user = userRepository.create(user);
+        User userToUpdate = User.builder().id(user.getId()).email("newemail@mail.com").password(user.getPassword()).build();
+        userRepository.save(userToUpdate);
+        assertThat(userRepository.findByEmail(user.getEmail())).isNull();
+        assertThat(userRepository.findByEmail(userToUpdate.getEmail())).isNotNull();
     }
 
     @Test
     public void testFind() throws Exception {
-
+        for (int i=0; i < 3; i++){
+            userRepository.create(User.builder().email("user"+i+"@mail.com").password("1234").build());
+        }
+        Collection<User> users = userRepository.find();
+        assertThat(users).hasSize(3);
     }
 
     @Test

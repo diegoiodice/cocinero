@@ -8,6 +8,7 @@
 .mvn/
 .vertx/
 target/
+*.DS_Store
 
 # Package Files #
 *.jar
