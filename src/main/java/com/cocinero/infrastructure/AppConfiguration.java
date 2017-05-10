@@ -23,7 +23,7 @@ public class AppConfiguration {
     private UserRepository userRepository;
 
     int httpPort() {
-        return environment.getProperty("http.port", Integer.class, 8080);
+        return environment.getProperty("http.port", Integer.class, 9000);
     }
 
     public String getWebRoot() {

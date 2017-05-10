@@ -2,37 +2,24 @@ package com.cocinero.infrastructure.repository;
 
 import com.cocinero.domain.User;
 import com.cocinero.domain.UserRepository;
-import com.cocinero.infrastructure.AppConfiguration;
-import com.github.fakemongo.Fongo;
-import com.mongodb.Mongo;
+import com.cocinero.infrastructure.SpringIntegrationTest;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 @Slf4j
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {UserRepositoryImplITest.UserRepositoryConfig.class,AppConfiguration.class})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class UserRepositoryImplITest {
+public class UserRepositoryImplITest extends SpringIntegrationTest{
 
     @Autowired
     private UserRepository userRepository;
@@ -102,21 +89,5 @@ public class UserRepositoryImplITest {
     @Test
     public void testFindByEmail_notFound() throws Exception {
         assertThat(userRepository.findByEmail("user@gmail.com")).isNull();
-    }
-
-    @Configuration
-    @ComponentScan("com.cocinero.infrastructure.repository")
-    @EnableMongoRepositories("com.cocinero.infrastructure.repository.mongo")
-    public static class UserRepositoryConfig extends AbstractMongoConfiguration {
-
-        @Override
-        protected String getDatabaseName() {
-            return "cocinerodb-test";
-        }
-
-        @Override
-        public Mongo mongo() throws Exception {
-            return new Fongo(getDatabaseName()).getMongo();
-        }
     }
 }
