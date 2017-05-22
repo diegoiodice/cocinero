@@ -94,8 +94,14 @@ public class Server extends AbstractVerticle {
                 .filter(method -> method.isAnnotationPresent(RequestMapping.class))
                 .forEach(method->{
                     RequestMapping requestMapping = method.getAnnotation(RequestMapping.class);
-                    addHandlers(router, controller, method, requestMapping);
-
+                    if(controller.getClass().isAnnotationPresent(RequestMapping.class)){
+                        RequestMapping subRouteMapping = controller.getClass().getAnnotation(RequestMapping.class);
+                        Router subRouter = Router.router(vertx);
+                        router.mountSubRouter(subRouteMapping.path(),subRouter);
+                        addHandlers(subRouter, controller, method, requestMapping);
+                    }else{
+                        addHandlers(router, controller, method, requestMapping);
+                    }
                 });
     }
 
