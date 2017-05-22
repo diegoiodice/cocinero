@@ -5,12 +5,12 @@ import io.vertx.ext.web.RoutingContext;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequestMapping(path="/event")
+@RequestMapping(path="/events")
 public class EventController extends AbstractController{
 
 
     @RequestMapping(path="/new")
     public Handler<RoutingContext> newEventView(){
-        return ctx->ctx.put("view","/event/new").next();
+        return ctx->ctx.put("view","events/new").next();
     }
 }

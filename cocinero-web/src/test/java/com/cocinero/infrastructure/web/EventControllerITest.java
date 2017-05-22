@@ -18,8 +18,8 @@ public class EventControllerITest extends SpringIntegrationTest{
     @Test
     public void testRegisterUser() throws Exception{
 
-        register("user@mail.com","test123");
-        gotoPage("/event/new");
+        register("eventuser@mail.com","test123");
+        gotoPage("/events/new");
         assertTitleEquals("Cocinero New Event");
         assertTextPresent("NEW EVENT");
     }

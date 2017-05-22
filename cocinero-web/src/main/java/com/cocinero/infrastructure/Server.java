@@ -76,7 +76,7 @@ public class Server extends AbstractVerticle {
 
         router.route("/public/*").handler(StaticHandler.create(configuration.getWebRoot()));
 
-        router.route().handler((ctx) -> engine.render(ctx, configuration.getWebRoot().concat(
+        router.route().handler((ctx) -> engine.render(ctx, configuration.getWebRoot().concat("/").concat(
                 ((String)ofNullable(ctx.get("view")).orElse("/index")).concat(".html")),
                 res->{
                     if (res.succeeded()) {

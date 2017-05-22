@@ -26,7 +26,7 @@ public class AuthController extends AbstractController {
 
     @RequestMapping(path="/register")
     public Handler<RoutingContext> renderRegisterView(){
-        return ctx->ctx.put("view","/register").next();
+        return ctx->ctx.put("view","register").next();
     }
 
     @RequestMapping(method=HttpMethod.POST,path="/register")
@@ -51,7 +51,7 @@ public class AuthController extends AbstractController {
 
     @RequestMapping(path="/login")
     public Handler<RoutingContext> renderLoginView(){
-        return ctx-> ctx.put("view","/login").next();
+        return ctx-> ctx.put("view","login").next();
     }
 
     @RequestMapping(method=HttpMethod.POST,path="/login",failureHandler = "loginFailureHandler")
