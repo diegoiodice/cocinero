@@ -76,7 +76,7 @@ public class Server extends AbstractVerticle {
 
         router.route("/public/*").handler(StaticHandler.create(configuration.getWebRoot()));
 
-        router.route().handler((ctx) -> engine.render(ctx, configuration.getWebRoot().concat(
+        router.route().handler((ctx) -> engine.render(ctx, configuration.getWebRoot().concat("/").concat(
                 ((String)ofNullable(ctx.get("view")).orElse("/index")).concat(".html")),
                 res->{
                     if (res.succeeded()) {
@@ -94,8 +94,14 @@ public class Server extends AbstractVerticle {
                 .filter(method -> method.isAnnotationPresent(RequestMapping.class))
                 .forEach(method->{
                     RequestMapping requestMapping = method.getAnnotation(RequestMapping.class);
-                    addHandlers(router, controller, method, requestMapping);
-
+                    if(controller.getClass().isAnnotationPresent(RequestMapping.class)){
+                        RequestMapping subRouteMapping = controller.getClass().getAnnotation(RequestMapping.class);
+                        Router subRouter = Router.router(vertx);
+                        router.mountSubRouter(subRouteMapping.path(),subRouter);
+                        addHandlers(subRouter, controller, method, requestMapping);
+                    }else{
+                        addHandlers(router, controller, method, requestMapping);
+                    }
                 });
     }
 

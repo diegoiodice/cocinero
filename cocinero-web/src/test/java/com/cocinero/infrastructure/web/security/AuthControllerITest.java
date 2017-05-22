@@ -50,12 +50,4 @@ public class AuthControllerITest extends SpringIntegrationTest {
         submit();
         assertTextPresent("Invalid Credentials");
     }
-
-    protected void register(String email,String password){
-        beginAt("/index.html");
-        clickLinkWithExactText("Sign Up");
-        setTextField("email", email);
-        setTextField("password", password);
-        submit();
-    }
 }
