@@ -16,7 +16,7 @@ public class EventControllerITest extends SpringIntegrationTest{
     }
 
     @Test
-    public void testRegisterUser() throws Exception{
+    public void renderNewEventViewTest() throws Exception{
 
         register("eventuser@mail.com","test123");
         gotoPage("/events/new");
