@@ -62,6 +62,7 @@ public class Server extends AbstractVerticle {
         router.route().handler(UserSessionHandler.create(authProvider));
 
         router.route().blockingHandler(authController.refreshUser());
+
         authController.setAuthProvider(authProvider);
         addRoutes(router,authController);
 

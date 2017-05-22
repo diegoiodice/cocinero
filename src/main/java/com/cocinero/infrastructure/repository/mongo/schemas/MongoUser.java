@@ -4,6 +4,7 @@ package com.cocinero.infrastructure.repository.mongo.schemas;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
+import org.bson.types.ObjectId;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -17,7 +18,7 @@ public class MongoUser {
 
     @Id
     @JsonSerialize(using=ToStringSerializer.class)
-    private String id;
+    private ObjectId id;
     @Indexed(unique = true)
     @NotNull(message = "email is mandatory")
     @Email

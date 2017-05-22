@@ -2,8 +2,6 @@ package com.cocinero.infrastructure.web.security;
 
 import com.cocinero.domain.UserRepository;
 import io.vertx.ext.auth.AuthProvider;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -61,10 +59,4 @@ public class AuthControllerUTest {
     public void refreshUser() throws Exception {
 
     }
-
-    @Test
-    public void setAuthProvider() throws Exception {
-
-    }
-
 }
