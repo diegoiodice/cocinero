@@ -17,10 +17,26 @@ public class EventControllerITest extends SpringIntegrationTest{
 
     @Test
     public void renderNewEventViewTest() throws Exception{
-
         register("eventuser@mail.com","test123");
         gotoPage("/events/new");
         assertTitleEquals("Cocinero New Event");
-        assertTextPresent("NEW EVENT");
+        assertTextPresent("New Event");
+    }
+
+    @Test
+    public void createNewEventTest() throws Exception{
+        register("eventuser1@mail.com","test123");
+        gotoPage("/events/new");
+        assertTitleEquals("Cocinero New Event");
+        setTextField("type", "dinner");
+        setTextField("maxAttendants", "10");
+        setTextField("amount", "5");
+        setTextField("name", "BBQ Dinner");
+        setTextField("description", "dinner con los panas");
+        setTextField("eventDate", "03/23/2017");
+        submit();
+        assertTitleEquals("Cocinero event detail");
+        assertTextPresent("Event BBQ Dinner created");
+        assertTextPresent("My Event");
     }
 }

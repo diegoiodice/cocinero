@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class Event {
 
     private final String id;
     private final String type;
-    private final Date created;
+    private final Date created = new Date(Instant.now().toEpochMilli());
     private final Date eventDate;
     private final List<Attendant> attendants;
     private final Integer maxAttendants;

@@ -88,20 +88,20 @@ public class Server extends AbstractVerticle {
         vertx.createHttpServer().requestHandler(router::accept).listen(configuration.httpPort());
     }
 
-    protected void addRoutes(Router router, WebController controller) {
+    protected void addRoutes(final Router router,final WebController controller) {
+
+        final Router subRouter = ofNullable(controller.getClass().getAnnotation(RequestMapping.class))
+                .map(RequestMapping::path).map(p -> {
+                    Router r = Router.router(vertx);
+                    router.mountSubRouter(p, r);
+                    return r;
+                }).orElse(router);
 
         Stream.of(controller.getClass().getMethods())
                 .filter(method -> method.isAnnotationPresent(RequestMapping.class))
                 .forEach(method->{
                     RequestMapping requestMapping = method.getAnnotation(RequestMapping.class);
-                    if(controller.getClass().isAnnotationPresent(RequestMapping.class)){
-                        RequestMapping subRouteMapping = controller.getClass().getAnnotation(RequestMapping.class);
-                        Router subRouter = Router.router(vertx);
-                        router.mountSubRouter(subRouteMapping.path(),subRouter);
-                        addHandlers(subRouter, controller, method, requestMapping);
-                    }else{
-                        addHandlers(router, controller, method, requestMapping);
-                    }
+                    addHandlers(subRouter, controller, method, requestMapping);
                 });
     }
 
