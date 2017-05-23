@@ -1,4 +1,4 @@
-package com.cocinero.infrastructure.repository.mongo.schemas;
+package com.cocinero.infrastructure.repository.schemas;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
@@ -9,7 +9,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.util.Date;
 
 @Data

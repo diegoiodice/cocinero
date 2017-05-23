@@ -1,12 +1,8 @@
 package com.cocinero.infrastructure.repository;
 
 import com.cocinero.domain.Event;
-import com.cocinero.domain.EventRepository;
-import com.cocinero.domain.User;
-import com.cocinero.infrastructure.repository.mongo.MongoEventRepository;
-import com.cocinero.infrastructure.repository.mongo.MongoUserRepository;
-import com.cocinero.infrastructure.repository.mongo.schemas.MongoEvent;
-import com.cocinero.infrastructure.repository.mongo.schemas.MongoUser;
+import com.cocinero.repository.EventRepository;
+import com.cocinero.infrastructure.repository.schemas.MongoEvent;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

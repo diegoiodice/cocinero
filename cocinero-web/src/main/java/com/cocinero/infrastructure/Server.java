@@ -1,6 +1,6 @@
 package com.cocinero.infrastructure;
 
-import com.cocinero.domain.UserRepository;
+import com.cocinero.repository.UserRepository;
 import com.cocinero.infrastructure.security.ShiroRealm;
 import com.cocinero.infrastructure.web.RequestMapping;
 import com.cocinero.infrastructure.web.WebController;

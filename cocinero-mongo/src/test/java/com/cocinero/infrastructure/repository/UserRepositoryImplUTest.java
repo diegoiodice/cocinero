@@ -1,8 +1,7 @@
 package com.cocinero.infrastructure.repository;
 
 import com.cocinero.domain.User;
-import com.cocinero.infrastructure.repository.mongo.MongoUserRepository;
-import com.cocinero.infrastructure.repository.mongo.schemas.MongoUser;
+import com.cocinero.infrastructure.repository.schemas.MongoUser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bson.types.ObjectId;

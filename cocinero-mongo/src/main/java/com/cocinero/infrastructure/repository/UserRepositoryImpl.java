@@ -1,9 +1,8 @@
 package com.cocinero.infrastructure.repository;
 
 import com.cocinero.domain.User;
-import com.cocinero.domain.UserRepository;
-import com.cocinero.infrastructure.repository.mongo.MongoUserRepository;
-import com.cocinero.infrastructure.repository.mongo.schemas.MongoUser;
+import com.cocinero.repository.UserRepository;
+import com.cocinero.infrastructure.repository.schemas.MongoUser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

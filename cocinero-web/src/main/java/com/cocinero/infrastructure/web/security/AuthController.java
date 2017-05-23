@@ -1,7 +1,7 @@
 package com.cocinero.infrastructure.web.security;
 
 import com.cocinero.domain.User;
-import com.cocinero.domain.UserRepository;
+import com.cocinero.repository.UserRepository;
 import com.cocinero.infrastructure.web.AbstractController;
 import com.cocinero.infrastructure.web.RequestMapping;
 import com.cocinero.infrastructure.web.message.FlashHandler;

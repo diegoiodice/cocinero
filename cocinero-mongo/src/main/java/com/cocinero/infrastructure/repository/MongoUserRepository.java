@@ -1,6 +1,6 @@
-package com.cocinero.infrastructure.repository.mongo;
+package com.cocinero.infrastructure.repository;
 
-import com.cocinero.infrastructure.repository.mongo.schemas.MongoUser;
+import com.cocinero.infrastructure.repository.schemas.MongoUser;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 

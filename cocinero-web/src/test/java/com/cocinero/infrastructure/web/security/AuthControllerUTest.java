@@ -1,6 +1,6 @@
 package com.cocinero.infrastructure.web.security;
 
-import com.cocinero.domain.UserRepository;
+import com.cocinero.repository.UserRepository;
 import io.vertx.ext.auth.AuthProvider;
 import org.junit.Test;
 import org.junit.runner.RunWith;

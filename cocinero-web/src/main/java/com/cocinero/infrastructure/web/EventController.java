@@ -1,7 +1,7 @@
 package com.cocinero.infrastructure.web;
 
 import com.cocinero.domain.Event;
-import com.cocinero.domain.EventRepository;
+import com.cocinero.repository.EventRepository;
 import com.cocinero.infrastructure.web.message.FlashHandler;
 import io.vertx.core.Handler;
 import io.vertx.core.http.HttpMethod;

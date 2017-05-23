@@ -2,7 +2,7 @@ package com.cocinero.infrastructure.security;
 
 
 import com.cocinero.domain.User;
-import com.cocinero.domain.UserRepository;
+import com.cocinero.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;

@@ -1,4 +1,6 @@
-package com.cocinero.domain;
+package com.cocinero.repository;
+
+import com.cocinero.domain.User;
 
 import java.util.Collection;
 

@@ -1,4 +1,4 @@
-package com.cocinero.infrastructure.repository.mongo.schemas;
+package com.cocinero.infrastructure.repository.schemas;
 
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

@@ -1,7 +1,7 @@
 package com.cocinero.infrastructure.repository;
 
 import com.cocinero.domain.User;
-import com.cocinero.domain.UserRepository;
+import com.cocinero.repository.UserRepository;
 import com.cocinero.infrastructure.SpringIntegrationTest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;

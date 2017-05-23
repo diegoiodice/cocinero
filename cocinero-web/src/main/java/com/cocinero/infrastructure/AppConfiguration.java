@@ -1,6 +1,6 @@
 package com.cocinero.infrastructure;
 
-import com.cocinero.domain.UserRepository;
+import com.cocinero.repository.UserRepository;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.vertx.ext.web.templ.TemplateEngine;
