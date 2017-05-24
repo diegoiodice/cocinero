@@ -1,6 +1,7 @@
 package com.cocinero.infrastructure.repository;
 
 import com.cocinero.domain.User;
+import com.cocinero.infrastructure.repository.mongo.MongoUserRepository;
 import com.cocinero.infrastructure.repository.schemas.MongoUser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -80,7 +81,7 @@ public class UserRepositoryImplUTest {
 
     @Test
     public void findById() throws Exception {
-        when(mongoUserRepository.findById(USER_ID)).thenReturn(mongoUser);
+        when(mongoUserRepository.findOne(USER_ID)).thenReturn(mongoUser);
         assertThat(testObject.findById(USER_ID)).isEqualTo(userWithId);
     }
 

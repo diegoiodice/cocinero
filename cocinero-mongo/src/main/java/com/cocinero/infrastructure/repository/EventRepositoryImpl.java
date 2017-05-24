@@ -1,6 +1,7 @@
 package com.cocinero.infrastructure.repository;
 
 import com.cocinero.domain.Event;
+import com.cocinero.infrastructure.repository.mongo.MongoEventRepository;
 import com.cocinero.infrastructure.repository.schemas.MongoEvent;
 import com.cocinero.repository.EventRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,35 +14,25 @@ import java.util.Date;
 import java.util.stream.Collectors;
 
 @Repository
-public class EventRepositoryImpl implements EventRepository {
+public class EventRepositoryImpl extends AbstractRepositoryImpl<Event,MongoEvent> implements EventRepository {
+
+    protected final ObjectMapper objectMapper;
+
+    protected final MongoEventRepository mongoEventRepository;
 
     @Autowired
-    private ObjectMapper objectMapper;
-
-    @Autowired
-    private MongoEventRepository mongoEventRepository;
-
-    @Override
-    public Event create(Event event) {
-        MongoEvent mongoEvent = objectMapper.convertValue(event, MongoEvent.class);
-        mongoEvent.setCreated(new Date(Instant.now().toEpochMilli()));
-        mongoEvent = mongoEventRepository.save(mongoEvent);
-        return objectMapper.convertValue(mongoEvent, Event.class);
+    public EventRepositoryImpl(ObjectMapper objectMapper, MongoEventRepository mongoEventRepository) {
+        super(objectMapper,mongoEventRepository, Event.class);
+        this.objectMapper = objectMapper;
+        this.mongoEventRepository = mongoEventRepository;
     }
 
     @Override
     public Event save(Event event) {
-        return this.create(event);
-    }
-
-    @Override
-    public Collection<Event> find() {
-        return mongoEventRepository.findAll().stream().map(me-> objectMapper.convertValue(me,Event.class)).collect(Collectors.toList());
-    }
-
-    @Override
-    public Event findById(String id) {
-        return objectMapper.convertValue(mongoEventRepository.findById(id),Event.class);
+        MongoEvent mongoEvent = objectMapper.convertValue(event, MongoEvent.class);
+        mongoEvent.setCreated(new Date(Instant.now().toEpochMilli()));
+        mongoEvent = mongoEventRepository.save(mongoEvent);
+        return objectMapper.convertValue(mongoEvent, Event.class);
     }
 
     @Override
