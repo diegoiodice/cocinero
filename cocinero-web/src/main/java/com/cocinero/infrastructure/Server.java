@@ -1,12 +1,12 @@
 package com.cocinero.infrastructure;
 
-import com.cocinero.repository.UserRepository;
 import com.cocinero.infrastructure.security.ShiroRealm;
 import com.cocinero.infrastructure.web.RequestMapping;
 import com.cocinero.infrastructure.web.WebController;
 import com.cocinero.infrastructure.web.message.FlashHandler;
 import com.cocinero.infrastructure.web.override.MethodOverrideHandler;
 import com.cocinero.infrastructure.web.security.AuthController;
+import com.cocinero.repository.UserRepository;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Handler;
 import io.vertx.ext.auth.AuthProvider;

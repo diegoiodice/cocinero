@@ -1,8 +1,8 @@
 package com.cocinero.infrastructure.repository;
 
 import com.cocinero.domain.User;
-import com.cocinero.repository.UserRepository;
 import com.cocinero.infrastructure.SpringIntegrationTest;
+import com.cocinero.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

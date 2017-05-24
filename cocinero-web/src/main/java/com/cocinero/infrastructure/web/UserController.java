@@ -1,24 +1,14 @@
 package com.cocinero.infrastructure.web;
 
 import com.cocinero.domain.Address;
-import com.cocinero.domain.Event;
-import com.cocinero.domain.Host;
 import com.cocinero.domain.User;
-import com.cocinero.infrastructure.web.message.FlashHandler;
 import com.cocinero.repository.AddressRepository;
-import com.cocinero.repository.EventRepository;
 import com.cocinero.repository.UserRepository;
 import io.vertx.core.Handler;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.ext.web.RoutingContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.math.BigDecimal;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @Component
 @RequestMapping(path="/users")

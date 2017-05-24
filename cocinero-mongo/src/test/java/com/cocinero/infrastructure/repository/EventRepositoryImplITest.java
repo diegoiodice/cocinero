@@ -4,17 +4,14 @@ import com.cocinero.domain.Event;
 import com.cocinero.domain.Host;
 import com.cocinero.infrastructure.SpringIntegrationTest;
 import com.cocinero.repository.EventRepository;
-import com.cocinero.repository.UserRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.*;
 
 
 public class EventRepositoryImplITest extends SpringIntegrationTest{

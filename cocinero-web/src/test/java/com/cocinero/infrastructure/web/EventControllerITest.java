@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static net.sourceforge.jwebunit.junit.JWebUnit.*;
-import static org.junit.Assert.*;
 
 
 public class EventControllerITest extends SpringIntegrationTest{
