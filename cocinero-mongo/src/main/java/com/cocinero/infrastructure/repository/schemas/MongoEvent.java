@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
@@ -32,6 +33,12 @@ public class MongoEvent {
     @NotNull(message = "Event description is mandatory")
     private final String description;
 
-    private final Date created;
+    @DBRef
+    private final MongoUser host;
+
+    @DBRef
+    private final MongoAddress address;
+
+    private Date created;
 
 }

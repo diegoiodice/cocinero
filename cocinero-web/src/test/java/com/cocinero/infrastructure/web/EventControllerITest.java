@@ -39,4 +39,46 @@ public class EventControllerITest extends SpringIntegrationTest{
         assertTextPresent("Event BBQ Dinner created");
         assertTextPresent("My Event");
     }
+
+    @Test
+    public void createNewEventAddNewAddressTest() throws Exception{
+        register("eventuser2@mail.com","test123");
+        gotoPage("/events/new");
+        assertTitleEquals("Cocinero New Event");
+        setTextField("type", "dinner");
+        setTextField("maxAttendants", "10");
+        setTextField("amount", "5");
+        setTextField("name", "BBQ Dinner");
+        setTextField("description", "dinner con los panas");
+        setTextField("eventDate", "03/23/2017");
+        submit();
+
+        clickLinkWithExactText("Add new address");
+
+        setTextField("postCode", "SW152JW");
+        setTextField("addressLine1", "flat 1");
+        setTextField("addressLine2", "fulham street");
+        setTextField("city", "london");
+        setTextField("country", "UK");
+
+        submit();
+
+    }
+
+    /*@Test
+    public void createNewEventAddExistingAddressTest() throws Exception{
+        register("eventuser1@mail.com","test123");
+        gotoPage("/events/new");
+        assertTitleEquals("Cocinero New Event");
+        setTextField("type", "dinner");
+        setTextField("maxAttendants", "10");
+        setTextField("amount", "5");
+        setTextField("name", "BBQ Dinner");
+        setTextField("description", "dinner con los panas");
+        setTextField("eventDate", "03/23/2017");
+        submit();
+        assertTitleEquals("Cocinero event detail");
+        assertTextPresent("Event BBQ Dinner created");
+        assertTextPresent("My Event");
+    }*/
 }

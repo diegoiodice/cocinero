@@ -2,6 +2,9 @@ package com.cocinero.repository;
 
 import com.cocinero.domain.Event;
 
-public interface EventRepository {
-    Event create(Event event);
+import java.util.Collection;
+
+public interface EventRepository extends AbstractRepository<Event>{
+
+    Collection<Event> findUpcomingEvents();
 }

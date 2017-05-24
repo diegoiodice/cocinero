@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -13,5 +14,9 @@ public class User {
     private final String id;
     private final String email;
     private final String password;
-    private final List<Role> roles = new ArrayList<>();
+    private final String names;
+    private final String lastNames;
+    private final Date dateOfBirth;
+    //private final List<Role> roles = new ArrayList<>();
+    private final List<Address> addresses = new ArrayList<>();
 }

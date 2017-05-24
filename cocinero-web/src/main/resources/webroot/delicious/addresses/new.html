@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.thymeleaf.org"
+      layout:decorator="webroot/delicious/layout.html">
+<head>
+    <title>Cocinero New Address</title>
+</head>
+<body>
+
+<span th:remove="tag" layout:fragment="banner">
+    <a class="user-control" href="/">Home</a>
+</span>
+
+<div class="container" layout:fragment="content">
+
+    <div class="row">
+        <h1 style="text-align:center;">New Address</h1>
+        <div style="width: 30%;margin:50px auto;">
+
+            <form th:action="${'/events/'+event.id+'/addresses'}" method="post">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="addressLine1" placeholder="addressLine1">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="addressLine2" placeholder="addressLine2">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="postCode" placeholder="postCode">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="city" placeholder="city">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="country" placeholder="country">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="telephone" placeholder="telephone">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="type" placeholder="type">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Submit!</button>
+                </div>
+            </form>
+            <a href="/">Get Back</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
