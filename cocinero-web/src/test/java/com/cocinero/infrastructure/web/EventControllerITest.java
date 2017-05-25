@@ -84,7 +84,6 @@ public class EventControllerITest extends SpringIntegrationTest{
     }*/
 
     @Test
-    @Ignore
     public void userSubscribesToEvent() throws Exception{
         register("diego@mail.com","test123");
         gotoPage("/events/new");
@@ -101,6 +100,29 @@ public class EventControllerITest extends SpringIntegrationTest{
 
         register("guest1@mail.com","test123");
         gotoPage("/events/"+eventId+"/subscribe");
-        assertTitleEquals("Event guests subscription");
+        assertTitleEquals("Cocinero upcoming events");
+        assertTextPresent("Guest subscribed successfully");
+    }
+
+    @Test
+    @Ignore
+    public void guestNotLoggedInTriesToSubscribeToEvent_redirectsToLogin() throws Exception{
+        register("diego@mail.com","test123");
+        gotoPage("/events/new");
+        assertTitleEquals("Cocinero New Event");
+        setTextField("type", "dinner");
+        setTextField("maxAttendants", "10");
+        setTextField("amount", "5");
+        setTextField("name", "BBQ Dinner");
+        setTextField("description", "dinner con los panas");
+        setTextField("eventDate", "03/23/2017");
+        submit();
+        String eventId = JWebUnit.getServerResponse().split("Location")[1].split("\n")[0].split("/")[5];
+        clickLinkWithExactText("Logout");
+
+        gotoPage("/events/"+eventId+"/subscribe");
+        assertTitleEquals("Cocinero Login");
+        //assertTitleEquals("Cocinero upcoming events");
+        //assertTextPresent("Guest subscribed successfully");
     }
 }

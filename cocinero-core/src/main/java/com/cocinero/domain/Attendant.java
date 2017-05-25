@@ -6,4 +6,6 @@ import lombok.Data;
 @Data
 @Builder
 public class Attendant {
+
+    private final String id;
 }
