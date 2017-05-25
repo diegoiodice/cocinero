@@ -24,6 +24,7 @@ public class SubscribeController extends AbstractController{
         return ctx->{
             User currentUser = ctx.get("user");
             Event currentEvent = eventRepository.findById(ctx.pathParam("id"));
+            //TODO: add attendant logic, statuses unconfirmed, confirmed, wating, already subscribed etc...
             currentEvent.getAttendants().add(Attendant.builder().id(currentUser.getId()).build());
             eventRepository.save(currentEvent);
             FlashHandler.addSuccess(ctx, "Guest subscribed successfully");
