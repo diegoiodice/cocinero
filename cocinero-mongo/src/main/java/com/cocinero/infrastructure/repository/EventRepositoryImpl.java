@@ -6,6 +6,7 @@ import com.cocinero.infrastructure.repository.schemas.MongoEvent;
 import com.cocinero.repository.EventRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.Instant;
@@ -16,16 +17,11 @@ import java.util.stream.Collectors;
 @Repository
 public class EventRepositoryImpl extends AbstractRepositoryImpl<Event,MongoEvent> implements EventRepository {
 
-    protected final ObjectMapper objectMapper;
-
-    protected final MongoEventRepository mongoEventRepository;
+    @Autowired
+    protected ObjectMapper objectMapper;
 
     @Autowired
-    public EventRepositoryImpl(ObjectMapper objectMapper, MongoEventRepository mongoEventRepository) {
-        super(objectMapper,mongoEventRepository, Event.class);
-        this.objectMapper = objectMapper;
-        this.mongoEventRepository = mongoEventRepository;
-    }
+    protected MongoEventRepository mongoEventRepository;
 
     @Override
     public Event save(Event event) {
@@ -42,5 +38,20 @@ public class EventRepositoryImpl extends AbstractRepositoryImpl<Event,MongoEvent
                 .stream()
                 .map(me-> objectMapper.convertValue(me,Event.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    protected Class<Event> getType() {
+        return Event.class;
+    }
+
+    @Override
+    protected MongoRepository<MongoEvent, String> getMongoRepository() {
+        return mongoEventRepository;
+    }
+
+    @Override
+    protected ObjectMapper getObjectMapper() {
+        return objectMapper;
     }
 }

@@ -31,6 +31,13 @@ public class EventController extends AbstractController{
     @Autowired
     private AddressRepository addressRepository;
 
+    @RequestMapping(path="/")
+    public Handler<RoutingContext> listEvents(){
+        return ctx->{
+            ctx.put("events",eventRepository.findUpcomingEvents()).put("view","events/index").next();
+        };
+    }
+
     @RequestMapping(path="/new")
     public Handler<RoutingContext> newEventView(){
         return ctx->ctx.put("view","events/new").next();

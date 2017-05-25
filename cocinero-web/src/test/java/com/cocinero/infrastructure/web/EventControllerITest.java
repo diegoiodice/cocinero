@@ -1,6 +1,7 @@
 package com.cocinero.infrastructure.web;
 
 import com.cocinero.infrastructure.SpringIntegrationTest;
+import net.sourceforge.jwebunit.junit.JWebUnit;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -80,4 +81,24 @@ public class EventControllerITest extends SpringIntegrationTest{
         assertTextPresent("Event BBQ Dinner created");
         assertTextPresent("My Event");
     }*/
+
+    @Test
+    public void userSubscribesToEvent() throws Exception{
+        register("diego@mail.com","test123");
+        gotoPage("/events/new");
+        assertTitleEquals("Cocinero New Event");
+        setTextField("type", "dinner");
+        setTextField("maxAttendants", "10");
+        setTextField("amount", "5");
+        setTextField("name", "BBQ Dinner");
+        setTextField("description", "dinner con los panas");
+        setTextField("eventDate", "03/23/2017");
+        submit();
+
+        String eventId = JWebUnit.getServerResponse().split("Location")[1].split("\n")[0].split("/")[5];
+
+        register("guest1@mail.com","test123");
+        gotoPage("/events/"+eventId+"/subscribe");
+        assertTitleEquals("Event guests subscription");
+    }
 }

@@ -9,27 +9,22 @@ import java.util.stream.Collectors;
 
 public abstract class AbstractRepositoryImpl<T,V> implements AbstractRepository<T>{
 
-    protected final ObjectMapper objectMapper;
-
-    protected final MongoRepository<V,String> mongoRepository;
-
-    private final Class<T> type;
-
-    protected AbstractRepositoryImpl(ObjectMapper objectMapper, MongoRepository<V, String> mongoRepository, Class<T> type) {
-        this.objectMapper = objectMapper;
-        this.mongoRepository = mongoRepository;
-        this.type = type;
-    }
 
     public final T create(T entity) {
         return this.save(entity);
     }
 
     public final Collection<T> find() {
-        return mongoRepository.findAll().stream().map(me-> objectMapper.convertValue(me,type)).collect(Collectors.toList());
+        return getMongoRepository().findAll().stream().map(me-> getObjectMapper().convertValue(me,getType())).collect(Collectors.toList());
     }
 
     public final T findById(String id) {
-        return objectMapper.convertValue(mongoRepository.findOne(id),type);
+        return getObjectMapper().convertValue(getMongoRepository().findOne(id),getType());
     }
+
+    protected abstract Class<T> getType();
+
+    protected abstract MongoRepository<V,String> getMongoRepository();
+
+    protected abstract ObjectMapper getObjectMapper();
 }
