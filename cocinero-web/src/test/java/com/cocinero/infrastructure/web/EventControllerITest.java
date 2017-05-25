@@ -3,6 +3,7 @@ package com.cocinero.infrastructure.web;
 import com.cocinero.infrastructure.SpringIntegrationTest;
 import net.sourceforge.jwebunit.junit.JWebUnit;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static net.sourceforge.jwebunit.junit.JWebUnit.*;
@@ -83,6 +84,7 @@ public class EventControllerITest extends SpringIntegrationTest{
     }*/
 
     @Test
+    @Ignore
     public void userSubscribesToEvent() throws Exception{
         register("diego@mail.com","test123");
         gotoPage("/events/new");
