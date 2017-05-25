@@ -8,4 +8,6 @@ import lombok.Data;
 public class Attendant {
 
     private final String id;
+    private AttendantStatus status;
+    private final Event event;
 }

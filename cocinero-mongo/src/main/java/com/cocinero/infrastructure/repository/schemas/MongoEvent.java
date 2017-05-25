@@ -10,7 +10,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Document(collection = "events")
@@ -38,6 +40,8 @@ public class MongoEvent {
 
     @DBRef
     private final MongoAddress address;
+
+    private final List<MongoAttendant> attendants = new ArrayList<>();
 
     private Date created;
 
