@@ -1,5 +1,6 @@
 package com.cocinero.infrastructure;
 
+import com.cocinero.infrastructure.security.Secured;
 import com.cocinero.infrastructure.security.ShiroRealm;
 import com.cocinero.infrastructure.web.RequestMapping;
 import com.cocinero.infrastructure.web.WebController;
@@ -45,12 +46,14 @@ public class Server extends AbstractVerticle {
     @Autowired
     private UserRepository userRepository;
 
+    private AuthHandler authHandler;
+
     @Override
     public void start() throws Exception {
 
         AuthProvider authProvider = ShiroAuth.create(vertx, new ShiroRealm(userRepository));
 
-        AuthHandler authHandler = RedirectAuthHandler.create(authProvider, "/loginRedirect");
+        authHandler = RedirectAuthHandler.create(authProvider, "/loginRedirect");
 
         Router router = Router.router(vertx);
 
@@ -107,6 +110,10 @@ public class Server extends AbstractVerticle {
 
     protected void addHandlers(Router router, WebController controller, Method method, RequestMapping requestMapping) {
         try {
+            if(method.isAnnotationPresent(Secured.class)){
+                router.route(requestMapping.method(), requestMapping.path())
+                        .handler(authHandler);
+            }
             Handler failureHandler = (Handler)controller.getClass()
                     .getMethod(requestMapping.failureHandler()).invoke(controller);
             Handler handler = (Handler)method.invoke(controller);

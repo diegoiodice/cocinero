@@ -13,6 +13,9 @@ import org.springframework.core.env.Environment;
 import org.springframework.data.mongodb.core.mapping.event.ValidatingMongoEventListener;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 @Configuration
 public class AppConfiguration {
 
@@ -52,5 +55,10 @@ public class AppConfiguration {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         return objectMapper;
+    }
+
+    @Bean
+    public DateFormat dateFormatter(){
+        return new SimpleDateFormat("dd/MM/yyyy");
     }
 }

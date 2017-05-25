@@ -3,6 +3,7 @@ package com.cocinero.infrastructure.web;
 import com.cocinero.domain.Attendant;
 import com.cocinero.domain.Event;
 import com.cocinero.domain.User;
+import com.cocinero.infrastructure.security.Secured;
 import com.cocinero.infrastructure.web.message.FlashHandler;
 import com.cocinero.repository.EventRepository;
 import io.vertx.core.Handler;
@@ -17,6 +18,7 @@ public class SubscribeController extends AbstractController{
     @Autowired
     private EventRepository eventRepository;
 
+    @Secured
     @RequestMapping(path="/:id/subscribe")
     public Handler<RoutingContext> subscribe(){
         return ctx->{

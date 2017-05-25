@@ -23,7 +23,8 @@ import java.util.Date;
 @RequestMapping(path="/events")
 public class EventController extends AbstractController{
 
-    private DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+    @Autowired
+    private DateFormat df;
 
     @Autowired
     private EventRepository eventRepository;
