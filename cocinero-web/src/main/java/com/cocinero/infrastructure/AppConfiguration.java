@@ -30,7 +30,7 @@ public class AppConfiguration {
     }
 
     public String getWebRoot() {
-        return "webroot/delicious";
+        return "webroot" + environment.getProperty("web.template","");
     }
 
     @Bean
