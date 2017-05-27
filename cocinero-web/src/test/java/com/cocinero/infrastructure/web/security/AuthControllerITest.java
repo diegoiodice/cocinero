@@ -2,10 +2,12 @@ package com.cocinero.infrastructure.web.security;
 
 import com.cocinero.infrastructure.SpringIntegrationTest;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static net.sourceforge.jwebunit.junit.JWebUnit.*;
 
+@Ignore
 public class AuthControllerITest extends SpringIntegrationTest {
 
     @Before

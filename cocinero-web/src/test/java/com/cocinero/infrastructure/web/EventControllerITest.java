@@ -17,6 +17,7 @@ import java.util.Date;
 import static net.sourceforge.jwebunit.junit.JWebUnit.*;
 
 
+@Ignore
 public class EventControllerITest extends SpringIntegrationTest{
 
     @Autowired

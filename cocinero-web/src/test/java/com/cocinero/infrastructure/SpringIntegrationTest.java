@@ -2,6 +2,7 @@ package com.cocinero.infrastructure;
 
 import com.github.fakemongo.Fongo;
 import com.mongodb.Mongo;
+import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,6 +17,11 @@ import static net.sourceforge.jwebunit.junit.JWebUnit.*;
 @DataMongoTest
 @ContextConfiguration(classes = SpringIntegrationTest.TestConfig.class)
 public abstract class SpringIntegrationTest {
+
+    @Before
+    public void setUp() throws Exception {
+        setBaseUrl("http://localhost:9090");
+    }
 
     protected void register(String email,String password){
         beginAt("/index.html");

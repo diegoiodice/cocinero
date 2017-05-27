@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-@Builder
+@Builder(toBuilder = true)
 public class Event {
 
     private final String id;
@@ -19,7 +19,7 @@ public class Event {
     private final List<Attendant> attendants = new ArrayList<>();
     private final Integer maxAttendants;
     private final Host host;
-    private Address address;
+    private final Address address;
     private final BigDecimal amount;
     private final String name;
     private final String description;

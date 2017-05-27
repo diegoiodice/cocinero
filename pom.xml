@@ -193,7 +193,7 @@
                         <version>2.19.1</version>
                         <configuration>
                             <systemPropertyVariables>
-                                <web.template>/delicious</web.template>
+                                <http.port>9090</http.port>
                             </systemPropertyVariables>
                             <includes>
                                 <include>**/*ITest*</include>

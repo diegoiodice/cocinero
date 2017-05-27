@@ -98,7 +98,7 @@ public class EventController extends AbstractController{
 
             Address addressWithId = addressRepository.create(address);
             Event event = eventRepository.findById(ctx.pathParam("id"));
-            event.setAddress(addressWithId);
+            event = event.toBuilder().address(addressWithId).build();
             event = eventRepository.save(event);
             doRedirect(ctx,"/events/show/"+event.getId());
         };
