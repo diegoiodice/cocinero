@@ -26,7 +26,7 @@ public class AuthController extends AbstractController {
 
     @RequestMapping(path="/register")
     public Handler<RoutingContext> renderRegisterView(){
-        return ctx->ctx.put("view","register").next();
+        return ctx->ctx.put("view","users/register").next();
     }
 
     @RequestMapping(method=HttpMethod.POST,path="/register")
@@ -45,7 +45,7 @@ public class AuthController extends AbstractController {
     @RequestMapping(path="/loginRedirect")
     public Handler<RoutingContext> loginRedirect(){
         return ctx->{
-            FlashHandler.addError(ctx,"Please Login First!");
+            getFlashHandler().addError(ctx,"login","com.cocinero.Login.required");
             doRedirect(ctx,"/login");};
     }
 
@@ -64,7 +64,7 @@ public class AuthController extends AbstractController {
 
     public Handler<RoutingContext> loginFailureHandler(){
         return ctx-> {
-            FlashHandler.addError(ctx,"Invalid Credentials");
+            getFlashHandler().addError(ctx,"login","com.cocinero.Login.invalid.credentials");
             doRedirect(ctx,"/login");
         };
     }
@@ -73,7 +73,7 @@ public class AuthController extends AbstractController {
     public Handler<RoutingContext> logout(){
         return ctx->{
             ofNullable(ctx.remove("user"))
-                    .ifPresent(user-> FlashHandler.addSuccess(ctx,"Logged you out!"));
+                    .ifPresent(user-> getFlashHandler().addSuccess(ctx,"logout","com.cocinero.Logout.logged.out"));
             ctx.clearUser();
             doRedirect(ctx,"/");
         };

@@ -10,15 +10,15 @@ import java.util.stream.Collectors;
 public abstract class AbstractRepositoryImpl<T,V> implements AbstractRepository<T>{
 
 
-    public final T create(T entity) {
+    public T create(T entity) {
         return this.save(entity);
     }
 
-    public final Collection<T> find() {
+    public Collection<T> find() {
         return getMongoRepository().findAll().stream().map(me-> getObjectMapper().convertValue(me,getType())).collect(Collectors.toList());
     }
 
-    public final T findById(String id) {
+    public T findById(String id) {
         return getObjectMapper().convertValue(getMongoRepository().findOne(id),getType());
     }
 

@@ -13,11 +13,13 @@ import io.vertx.core.Handler;
 import io.vertx.ext.auth.AuthProvider;
 import io.vertx.ext.auth.shiro.ShiroAuth;
 import io.vertx.ext.web.Router;
+import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.*;
 import io.vertx.ext.web.sstore.LocalSessionStore;
 import io.vertx.ext.web.templ.TemplateEngine;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.InvocationTargetException;
@@ -46,6 +48,9 @@ public class Server extends AbstractVerticle {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private Environment environment;
+
     private AuthHandler authHandler;
 
     @Override
@@ -54,13 +59,14 @@ public class Server extends AbstractVerticle {
         AuthProvider authProvider = ShiroAuth.create(vertx, new ShiroRealm(userRepository));
 
         authHandler = RedirectAuthHandler.create(authProvider, "/loginRedirect");
+        FlashHandler flashHandler = FlashHandler.builder().environment(environment).create();
 
         Router router = Router.router(vertx);
 
         router.route().handler(CookieHandler.create());
         router.route().handler(BodyHandler.create());
         router.route().handler(MethodOverrideHandler.builder().method("_method").create());
-        router.route().handler(FlashHandler.builder().create());
+        router.route().handler(flashHandler);
         router.route().handler(SessionHandler.create(LocalSessionStore.create(vertx)));
         router.route().handler(UserSessionHandler.create(authProvider));
 
@@ -74,7 +80,8 @@ public class Server extends AbstractVerticle {
         router.delete().handler(authHandler);
         router.getWithRegex("(\\/.+)+\\/(new|edit)").handler(authHandler);
 
-        controllers.stream().filter(c-> !(c instanceof AuthController)).forEach(c->
+        controllers.stream().map(c->{c.setFlashHandler(flashHandler); return c;})
+                .filter(c-> !(c instanceof AuthController)).forEach(c->
                 addRoutes(router, c));
 
         router.route("/public/*").handler(StaticHandler.create(configuration.getWebRoot()));

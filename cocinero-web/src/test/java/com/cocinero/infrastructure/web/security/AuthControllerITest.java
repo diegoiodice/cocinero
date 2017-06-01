@@ -25,6 +25,14 @@ public class AuthControllerITest extends SpringIntegrationTest {
     }
 
     @Test
+    public void testRegisterUserWrongEmail() throws Exception{
+
+        register("usermail.com","test123");
+        assertTitleEquals("Cocinero Register");
+        assertTextPresent("Not a valid Email address");
+    }
+
+    @Test
     public void testLoginUser() throws Exception{
 
         register("user_logi@mail.com","test123");

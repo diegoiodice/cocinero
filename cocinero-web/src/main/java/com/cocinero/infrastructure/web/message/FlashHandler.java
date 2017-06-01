@@ -1,72 +1,63 @@
 package com.cocinero.infrastructure.web.message;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.vertx.core.Handler;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Cookie;
 import io.vertx.ext.web.RoutingContext;
 import lombok.Builder;
-import org.apache.commons.lang3.StringUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.env.Environment;
 
-import java.util.Base64;
+import java.io.IOException;
+import java.util.*;
 
+@Slf4j
 @Builder(buildMethodName = "create")
 public class FlashHandler implements Handler<RoutingContext> {
+
+    private final Environment environment;
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
     public void handle(RoutingContext ctx) {
 
         Cookie flashCookie = ctx.getCookie("flash_message");
         if(flashCookie != null){
-            byte[] cookieValue = Base64.getDecoder().decode(flashCookie.getValue());
-            ctx.put("flash_message",new FlashMessage(cookieValue));
-            ctx.addCookie(Cookie.cookie("flash_message","").setMaxAge(0));
+            try {
+                ctx.put("flash_message",
+                        objectMapper.readValue(Base64.getDecoder().decode(flashCookie.getValue()), Map.class));
+            } catch (IOException e) {
+                log.error(e.getMessage(),e);
+            }
+        }else{
+            Map<String,Map<String,String>> messages = new HashMap<>();
+            messages.put("errors",new HashMap<>());
+            messages.put("success",new HashMap<>());
+            ctx.put("flash_message",messages);
         }
-        ctx.data().computeIfAbsent("flash_message", k -> new FlashMessage());
         ctx.next();
     }
 
-    private static void put(RoutingContext ctx,String key, String value){
-        FlashMessage flashMessage = ctx.get("flash_message");
-        flashMessage.put(key,value);
-        String encodedCookie = Base64.getEncoder().encodeToString(flashMessage.getFlash().encode().getBytes());
-        ctx.addCookie(Cookie.cookie("flash_message", encodedCookie).setPath("/"));
+    public void addError(RoutingContext ctx, String key, String value){
+        Map<String,Map<String,String>> messages = ctx.get("flash_message");
+        messages.get("errors").put(key,environment.getProperty(value,value));
     }
 
-    public static void addError(RoutingContext ctx, String value){
-        FlashHandler.put(ctx,"error",value);
+    public void addSuccess(RoutingContext ctx, String key, String value){
+        Map<String,Map<String,String>> messages = ctx.get("flash_message");
+        messages.get("success").put(key,environment.getProperty(value,value));
     }
 
-    public static void addSuccess(RoutingContext ctx, String value){
-        FlashHandler.put(ctx,"success",value);
-    }
-
-    private class FlashMessage {
-
-        private final JsonObject flash;
-
-        public JsonObject getFlash() {
-            return flash;
-        }
-
-        public FlashMessage() {
-            flash = new JsonObject();
-        }
-
-        public FlashMessage(byte[] flashContent){
-            String json = new String(flashContent);
-            if (StringUtils.isNotBlank(json)) {
-                this.flash = new JsonObject(json);
-            }else{
-                this.flash = new JsonObject();
-            }
-        }
-
-        public void put(String key, String value){
-            flash.put(key,value);
-        }
-
-        public String getString(String key){
-            return flash.getString(key);
+    public void persistMessages(RoutingContext ctx){
+        Map<String,List<JsonObject>> messages = ctx.get("flash_message");
+        try {
+            ctx.addCookie(Cookie.cookie("flash_message",
+                    Base64.getEncoder().encodeToString(objectMapper.writeValueAsBytes(messages)))
+                    .setMaxAge(5).setPath("/"));
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e.getMessage(),e);
         }
     }
 }

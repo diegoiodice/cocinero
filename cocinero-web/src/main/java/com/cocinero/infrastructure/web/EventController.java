@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Component
@@ -67,7 +66,7 @@ public class EventController extends AbstractController{
 
             Event eventWithId = eventRepository.create(event);
 
-            FlashHandler.addSuccess(ctx,"Event "+eventName+" created");
+            getFlashHandler().addSuccess(ctx,"event","Event "+eventName+" created");
             doRedirect(ctx,"/events/show/"+eventWithId.getId());
         };
     }

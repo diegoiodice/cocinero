@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat;
 public class AppConfiguration {
 
     @Autowired
-    Environment environment;
+    private Environment environment;
 
     @Autowired
     private UserRepository userRepository;

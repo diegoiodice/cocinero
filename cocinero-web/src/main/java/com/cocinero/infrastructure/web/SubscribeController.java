@@ -27,7 +27,7 @@ public class SubscribeController extends AbstractController{
             //TODO: add attendant logic, statuses unconfirmed, confirmed, wating, already subscribed etc...
             currentEvent.getAttendants().add(Attendant.builder().id(currentUser.getId()).build());
             eventRepository.save(currentEvent);
-            FlashHandler.addSuccess(ctx, "Guest subscribed successfully");
+            getFlashHandler().addSuccess(ctx, "subscription","Guest subscribed successfully");
             doRedirect(ctx,"/events");
         };
     }
