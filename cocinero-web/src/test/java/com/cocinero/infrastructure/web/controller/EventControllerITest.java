@@ -1,4 +1,4 @@
-package com.cocinero.infrastructure.web;
+package com.cocinero.infrastructure.web.controller;
 
 import com.cocinero.domain.Event;
 import com.cocinero.infrastructure.SpringIntegrationTest;

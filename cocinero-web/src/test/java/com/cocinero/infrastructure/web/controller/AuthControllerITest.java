@@ -1,4 +1,4 @@
-package com.cocinero.infrastructure.web.security;
+package com.cocinero.infrastructure.web.controller;
 
 import com.cocinero.infrastructure.SpringIntegrationTest;
 import org.junit.Before;

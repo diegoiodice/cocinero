@@ -1,8 +1,7 @@
-package com.cocinero.infrastructure.web;
+package com.cocinero.infrastructure.web.controller;
 
-import com.cocinero.infrastructure.web.message.FlashHandler;
+import com.cocinero.infrastructure.web.notification.FlashHandler;
 import io.vertx.core.Handler;
-import io.vertx.ext.web.Cookie;
 import io.vertx.ext.web.RoutingContext;
 import lombok.extern.slf4j.Slf4j;
 

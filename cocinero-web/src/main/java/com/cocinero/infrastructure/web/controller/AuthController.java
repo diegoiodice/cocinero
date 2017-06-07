@@ -1,9 +1,8 @@
-package com.cocinero.infrastructure.web.security;
+package com.cocinero.infrastructure.web.controller;
 
 import com.cocinero.domain.User;
-import com.cocinero.infrastructure.web.AbstractController;
+import com.cocinero.infrastructure.web.controller.AbstractController;
 import com.cocinero.infrastructure.web.RequestMapping;
-import com.cocinero.infrastructure.web.message.FlashHandler;
 import com.cocinero.repository.UserRepository;
 import io.vertx.core.Handler;
 import io.vertx.core.http.HttpMethod;

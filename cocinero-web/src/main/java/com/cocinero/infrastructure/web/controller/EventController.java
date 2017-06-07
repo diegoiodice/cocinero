@@ -1,10 +1,10 @@
-package com.cocinero.infrastructure.web;
+package com.cocinero.infrastructure.web.controller;
 
 import com.cocinero.domain.Address;
 import com.cocinero.domain.Event;
 import com.cocinero.domain.Host;
 import com.cocinero.domain.User;
-import com.cocinero.infrastructure.web.message.FlashHandler;
+import com.cocinero.infrastructure.web.RequestMapping;
 import com.cocinero.repository.AddressRepository;
 import com.cocinero.repository.EventRepository;
 import io.vertx.core.Handler;

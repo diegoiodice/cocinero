@@ -1,10 +1,11 @@
-package com.cocinero.infrastructure.web;
+package com.cocinero.infrastructure.web.controller;
 
 import com.cocinero.domain.Attendant;
 import com.cocinero.domain.Event;
 import com.cocinero.domain.User;
 import com.cocinero.infrastructure.security.Secured;
-import com.cocinero.infrastructure.web.message.FlashHandler;
+import com.cocinero.infrastructure.web.RequestMapping;
+import com.cocinero.infrastructure.web.controller.AbstractController;
 import com.cocinero.repository.EventRepository;
 import io.vertx.core.Handler;
 import io.vertx.ext.web.RoutingContext;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequestMapping(path = "/events")
-public class SubscribeController extends AbstractController{
+public class SubscribeController extends AbstractController {
 
     @Autowired
     private EventRepository eventRepository;

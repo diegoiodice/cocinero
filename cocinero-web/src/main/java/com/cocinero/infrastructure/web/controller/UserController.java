@@ -1,7 +1,8 @@
-package com.cocinero.infrastructure.web;
+package com.cocinero.infrastructure.web.controller;
 
 import com.cocinero.domain.Address;
 import com.cocinero.domain.User;
+import com.cocinero.infrastructure.web.RequestMapping;
 import com.cocinero.repository.AddressRepository;
 import com.cocinero.repository.UserRepository;
 import io.vertx.core.Handler;
