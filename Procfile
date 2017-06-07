@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -Dhttp.port=$PORT -Dweb.template=/delicious -Dspring.profiles.active=prod -jar cocinero-web/target/*.jar
+web: java $JAVA_OPTS -Dhttp.port=$PORT -Dweb.theme=default -Dspring.profiles.active=prod -jar cocinero-web/target/*.jar

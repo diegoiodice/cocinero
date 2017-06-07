@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import static net.sourceforge.jwebunit.junit.JWebUnit.*;
 
-@Ignore
 public class AuthControllerITest extends SpringIntegrationTest {
 
     @Before

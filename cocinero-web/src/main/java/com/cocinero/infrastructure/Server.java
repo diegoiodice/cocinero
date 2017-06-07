@@ -84,16 +84,18 @@ public class Server extends AbstractVerticle {
                 .filter(c-> !(c instanceof AuthController)).forEach(c->
                 addRoutes(router, c));
 
-        router.route("/public/*").handler(StaticHandler.create(configuration.getWebRoot()));
+        router.route("/public/*").handler(StaticHandler.create(configuration.getWebTheme()));
 
-        router.route().handler((ctx) -> engine.render(ctx, configuration.getWebRoot().concat("/").concat(
+        router.route().handler((ctx) -> {
+            ctx.put("themePath",configuration.getWebTheme());
+            engine.render(ctx, configuration.getWebRoot().concat("/templates/").concat(
                 ((String)ofNullable(ctx.get("view")).orElse("index")).concat(".html")),
                 res->{
                     if (res.succeeded()) {
                         ctx.response().end(res.result());
                     } else {
                         ctx.fail(res.cause());
-                    }}));
+                    }});});
 
         vertx.createHttpServer().requestHandler(router::accept).listen(configuration.httpPort());
     }

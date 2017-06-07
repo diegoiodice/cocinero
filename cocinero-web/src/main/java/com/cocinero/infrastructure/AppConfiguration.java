@@ -30,7 +30,11 @@ public class AppConfiguration {
     }
 
     public String getWebRoot() {
-        return "webroot" + environment.getProperty("web.template","");
+        return "webroot";
+    }
+
+    public String getWebTheme() {
+        return "webroot/themes/" + environment.getProperty("web.theme","default");
     }
 
     @Bean

@@ -49,8 +49,9 @@
 </section>
 <!-- / banner -->
 <div class="container">
-    <div th:if="${flash_message.getString('error')}" class="alert alert-danger" role="alert">[[${flash_message.getString('error')}]]</div>
-    <div th:if="${flash_message.getString('success')}" class="alert alert-success" role="alert">[[${flash_message.getString('success')}]]</div>
+    <div class="container alert alert-danger">
+        <p th:text="${flash_message.get('errors')}">A Smoke Test</p>
+    </div>
 </div>
 <div class="container" layout:fragment="content"/>
 <!-- footer -->
