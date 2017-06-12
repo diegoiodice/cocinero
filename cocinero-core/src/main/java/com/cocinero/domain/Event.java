@@ -2,14 +2,14 @@ package com.cocinero.domain;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Data
 @Builder(toBuilder = true)
+@EqualsAndHashCode(of = {"id"})
 public class Event {
 
     private final String id;
@@ -22,7 +22,7 @@ public class Event {
     private final Date eventDate;
     private final Address address;
 
-    private final List<Attendant> attendants = new ArrayList<>();
+    private final Set<Attendant> attendants = new HashSet<>();
     private final List<Comment> comments = new ArrayList<>();
 
     private final Date created;

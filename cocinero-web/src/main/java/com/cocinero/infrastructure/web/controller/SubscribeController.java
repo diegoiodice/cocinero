@@ -26,9 +26,12 @@ public class SubscribeController extends AbstractController {
             User currentUser = ctx.get("user");
             Event currentEvent = eventRepository.findById(ctx.pathParam("id"));
             //TODO: add attendant logic, statuses unconfirmed, confirmed, wating, already subscribed etc...
-            currentEvent.getAttendants().add(Attendant.builder().id(currentUser.getId()).build());
-            eventRepository.save(currentEvent);
-            getFlashHandler().addSuccess(ctx, "subscription","Guest subscribed successfully");
+            if(currentEvent.getAttendants().add(Attendant.builder().id(currentUser.getId()).build())){
+                eventRepository.save(currentEvent);
+                getFlashHandler().addSuccess(ctx, "subscription","com.cocinero.subscribed.success");
+            }else{
+                getFlashHandler().addError(ctx, "subscription","com.cocinero.subscribed.duplicate");
+            }
             doRedirect(ctx,"/events");
         };
     }

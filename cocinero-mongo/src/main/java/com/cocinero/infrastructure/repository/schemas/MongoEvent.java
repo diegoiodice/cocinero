@@ -11,6 +11,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Document(collection = "events")
@@ -38,6 +40,8 @@ public class MongoEvent {
 
     @DBRef
     private final MongoAddress address;
+
+    private final Set<MongoAttendant> attendants = new HashSet<>();
 
     private Date created;
 

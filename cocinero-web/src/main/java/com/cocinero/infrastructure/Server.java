@@ -55,8 +55,6 @@ public class Server extends AbstractVerticle {
     @Override
     public void start() throws Exception {
 
-        System.setProperty("vertx.disableFileCaching", Boolean.toString(configuration.isDevActiveProfile()));
-
         AuthProvider authProvider = ShiroAuth.create(vertx, new ShiroRealm(userRepository));
 
         authHandler = RedirectAuthHandler.create(authProvider, "/loginRedirect");
@@ -89,14 +87,18 @@ public class Server extends AbstractVerticle {
 
         router.route().handler((ctx) -> {
             ctx.put("themePath",configuration.getWebTheme());
-            engine.render(ctx, configuration.getWebRoot().concat("/templates/").concat(
-                ((String)ofNullable(ctx.get("view")).orElse("index")).concat(".html")),
-                res->{
-                    if (res.succeeded()) {
-                        ctx.response().end(res.result());
-                    } else {
-                        ctx.fail(res.cause());
-                    }});});
+            String view = ctx.get("view");
+            if(view!=null){
+                engine.render(ctx, configuration.getWebRoot().concat("/templates/").concat(view).concat(".html"),
+                    res->{
+                        if (res.succeeded()) {
+                            ctx.response().end(res.result());
+                        } else {
+                            ctx.fail(res.cause());
+                        }});
+            }else{
+                ctx.reroute("/events");
+            }});
 
         vertx.createHttpServer().requestHandler(router::accept).listen(configuration.httpPort());
     }

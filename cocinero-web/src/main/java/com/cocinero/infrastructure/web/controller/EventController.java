@@ -1,9 +1,6 @@
 package com.cocinero.infrastructure.web.controller;
 
-import com.cocinero.domain.Address;
-import com.cocinero.domain.Event;
-import com.cocinero.domain.Host;
-import com.cocinero.domain.User;
+import com.cocinero.domain.*;
 import com.cocinero.infrastructure.web.RequestMapping;
 import com.cocinero.repository.AddressRepository;
 import com.cocinero.repository.EventRepository;
@@ -51,12 +48,14 @@ public class EventController extends AbstractController{
 
         return ctx->{
             User currentUser = ctx.get("user");
+
             String eventName = ctx.request().getParam("name");
             String type = ctx.request().getParam("type");
             Integer maxAttendants = Integer.parseInt(ctx.request().getParam("maxAttendants"));
             BigDecimal amount = new BigDecimal(ctx.request().getParam("amount"));
             Date eventDate = getEventDate(ctx.request().getParam("eventDate"));
             String description = ctx.request().getParam("description");
+
             Event event = Event.builder()
                     .name(eventName)
                     .type(type)
@@ -66,6 +65,8 @@ public class EventController extends AbstractController{
                     .description(description)
                     .host(Host.builder().id(currentUser.getId()).build())
                     .build();
+
+            event.getAttendants().add(Attendant.builder().id(currentUser.getId()).build());
 
             Event eventWithId = eventRepository.create(event);
 
@@ -110,18 +111,9 @@ public class EventController extends AbstractController{
     public Handler<RoutingContext> addExistingAddressToEvent(){
 
         return ctx->{
-            //User currentUser = ctx.get("user");
             Event currentEvent = eventRepository.findById(ctx.pathParam("id"));
             Address address = addressRepository.findById(ctx.pathParam("addressId"));
-            Event event = Event.builder()
-                    .id(currentEvent.getId())
-                    //.name(currentEvent.getName())
-                    //.type(currentEvent.getType())
-                    //.maxAttendants(currentEvent.getMaxAttendants())
-                    //.amount(currentEvent.getAmount())
-                    //.eventDate(currentEvent.getEventDate())
-                    //.description(currentEvent.getDescription())
-                    //.host(Host.builder().id(currentUser.getId()).build())
+            Event event = currentEvent.toBuilder()
                     .address(address)
                     .build();
             event = eventRepository.save(event);
@@ -132,7 +124,6 @@ public class EventController extends AbstractController{
     @RequestMapping(path="/:id")
     public Handler<RoutingContext> showEvent(){
         return ctx->{
-            //TODO: findEventById
             ctx.put("event",eventRepository.findById(ctx.pathParam("id")));
             ctx.put("view","events/show").next();
         };

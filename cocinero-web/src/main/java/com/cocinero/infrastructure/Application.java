@@ -14,6 +14,8 @@ public class Application {
 	private Server server;
 
 	public static void main(String[] args) {
+        String activeProfile = System.getProperty("spring.profiles.active","");
+        System.setProperty("vertx.disableFileCaching", Boolean.toString(activeProfile.contains("dev")));
 		SpringApplication.run(Application.class, args);
 	}
 
