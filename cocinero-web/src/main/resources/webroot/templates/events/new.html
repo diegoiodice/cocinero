@@ -6,6 +6,9 @@
     <title>Cocinero New Event</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <th:block layout:fragment="css">
+        <link href="/public/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+    </th:block>
 </head>
 <body>
 <div class="container" layout:fragment="content">
@@ -55,6 +58,15 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="inputEventDate" class="col-lg-2 control-label">DateTime Picking</label>
+                    <div class="input-group date form_datetime col-lg-10" data-date-format="dd MM yyyy - HH:ii p" data-link-field="inputEventDate" data-link-format="yyyy-mm-ddTHH:ii">
+                        <input class="form-control" type="text" value="" readonly>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                    </div>
+                    <input type="hidden" id="inputEventDate" name="eventDate" value="" /><br/>
+                </div>
+
+                <div class="form-group">
                     <div class="col-lg-10 col-lg-offset-2">
                         <button type="reset" class="btn btn-default">Cancel</button>
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -66,5 +78,15 @@
     </div>
 </div>
 </div>
+<th:block layout:fragment="script">
+    <script type="text/javascript" src="/public/js/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
+    <script type="text/javascript">
+        $(".form_datetime").datetimepicker({
+            format: "dd MM yyyy - hh:ii",
+            startDate: new Date(),
+            minuteStep: 15
+        });
+    </script>
+</th:block>
 </body>
 </html>

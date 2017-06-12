@@ -16,6 +16,11 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Component
@@ -23,7 +28,7 @@ import java.util.Date;
 public class EventController extends AbstractController{
 
     @Autowired
-    private DateFormat df;
+    private DateTimeFormatter df;
 
     @Autowired
     private EventRepository eventRepository;
@@ -33,9 +38,7 @@ public class EventController extends AbstractController{
 
     @RequestMapping(path="/")
     public Handler<RoutingContext> listEvents(){
-        return ctx->{
-            ctx.put("events",eventRepository.findUpcomingEvents()).put("view","events/index").next();
-        };
+        return ctx-> ctx.put("events",eventRepository.findUpcomingEvents()).put("view","events/index").next();
     }
 
     @RequestMapping(path="/new")
@@ -67,7 +70,7 @@ public class EventController extends AbstractController{
             Event eventWithId = eventRepository.create(event);
 
             getFlashHandler().addSuccess(ctx,"event","Event "+eventName+" created");
-            doRedirect(ctx,"/events/show/"+eventWithId.getId());
+            doRedirect(ctx,"/events/"+eventWithId.getId());
         };
     }
 
@@ -122,11 +125,11 @@ public class EventController extends AbstractController{
                     .address(address)
                     .build();
             event = eventRepository.save(event);
-            doRedirect(ctx,"/events/show/"+event.getId());
+            doRedirect(ctx,"/events/"+event.getId());
         };
     }
 
-    @RequestMapping(path="/show/:id")
+    @RequestMapping(path="/:id")
     public Handler<RoutingContext> showEvent(){
         return ctx->{
             //TODO: findEventById
@@ -136,10 +139,6 @@ public class EventController extends AbstractController{
     }
 
     private Date getEventDate(String eventDate) {
-        try {
-            return df.parse(eventDate);
-        } catch (ParseException e) {
-            throw new IllegalArgumentException(e.getMessage(),e);
-        }
+        return Date.from(LocalDateTime.parse(eventDate, df).atZone(ZoneId.systemDefault()).toInstant());
     }
 }

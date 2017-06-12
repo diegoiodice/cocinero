@@ -15,6 +15,7 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 
 @Configuration
 public class AppConfiguration {
@@ -62,7 +63,7 @@ public class AppConfiguration {
     }
 
     @Bean
-    public DateFormat dateFormatter(){
-        return new SimpleDateFormat("dd/MM/yyyy");
+    public DateTimeFormatter dateFormatter(){
+        return DateTimeFormatter.ISO_DATE_TIME;
     }
 }
