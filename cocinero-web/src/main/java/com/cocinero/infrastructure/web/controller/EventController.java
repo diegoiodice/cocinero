@@ -43,7 +43,7 @@ public class EventController extends AbstractController{
 
     @RequestMapping(path="/new")
     public Handler<RoutingContext> newEventView(){
-        return ctx->ctx.put("view","events/new").next();
+        return ctx->ctx.put("view","events/new").reroute("");
     }
 
     @RequestMapping(path="/",method = HttpMethod.POST)

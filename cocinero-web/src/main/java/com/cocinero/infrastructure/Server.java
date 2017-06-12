@@ -55,6 +55,8 @@ public class Server extends AbstractVerticle {
     @Override
     public void start() throws Exception {
 
+        System.setProperty("vertx.disableFileCaching", Boolean.toString(configuration.isDevActiveProfile()));
+
         AuthProvider authProvider = ShiroAuth.create(vertx, new ShiroRealm(userRepository));
 
         authHandler = RedirectAuthHandler.create(authProvider, "/loginRedirect");

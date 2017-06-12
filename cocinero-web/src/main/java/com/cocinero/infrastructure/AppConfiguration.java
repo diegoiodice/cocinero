@@ -16,6 +16,7 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 
 @Configuration
 public class AppConfiguration {
@@ -65,5 +66,9 @@ public class AppConfiguration {
     @Bean
     public DateTimeFormatter dateFormatter(){
         return DateTimeFormatter.ISO_DATE_TIME;
+    }
+
+    public boolean isDevActiveProfile(){
+        return Arrays.asList(environment.getActiveProfiles()).contains("dev");
     }
 }
