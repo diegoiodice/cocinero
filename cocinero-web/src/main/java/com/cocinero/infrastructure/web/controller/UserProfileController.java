@@ -54,7 +54,7 @@ public class UserProfileController extends AbstractController{
                     .telephone(request.getFormAttribute("telephone"))
                     .build());
 
-            ctx.put("view","events/index").next();
+            doRedirect(ctx,"/events");
         };
     }
 

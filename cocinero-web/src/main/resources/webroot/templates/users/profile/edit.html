@@ -44,10 +44,12 @@
                         <div class="form-group">
                             <label for="inputDateOfBirth" class="col-lg-2 control-label">Date of birth</label>
 
-                            <div class="input-group date col-lg-10" data-link-field="inputDateOfBirth" data-link-format="yyyy-m-dd">
-                                <input type="text" readonly th:value="${#dates.format(userProfile.dateOfBirth, 'dd-MM-yyyy')}" class="form-control">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-                                <input type="hidden" id="inputDateOfBirth" name="dateOfBirth" th:value="${#dates.format(userProfile.dateOfBirth,'yyyy-MM-dd')}" />
+                            <div class="input-group date">
+                                <input readonly type="text" th:value="${#dates.format(userProfile.dateOfBirth, 'dd-MMM-yyyy')}" class="form-control">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-th"></span>
+                                </div>
+                                <input id="inputDateOfBirth" type="hidden" name="dateOfBirth" th:value="${#dates.format(userProfile.dateOfBirth,'yyyy-MM-dd')}" />
                             </div>
                         </div>
 
@@ -70,16 +72,18 @@
     <script type="text/javascript" src="/public/js/bootstrap-datepicker.min.js" charset="UTF-8"></script>
     <script type="text/javascript">
         $(".input-group.date").datepicker({
-            format: {
-                toDisplay: function (date, format, language) {
-                    $("#inputDateOfBirth").val(date.toJSON().split('T')[0]);
-                    return date.toGMTString();
-                },
-                toValue: function (date, format, language) {
-                    return (new Date(date)).toJSON();
-                }
-            },
+            inputs: $('.input-group.date > .form-control'),
+            format:"dd-M-yyyy",
             autoclose: true
+        }).on('changeDate',function(e){
+            var date = e.date;
+            var monthNames = ["01", "02", "03","04", "05", "06", "07","08", "09", "10","11", "12"];
+
+            var day = date.getDate();
+            var monthIndex = date.getMonth();
+            var year = date.getFullYear();
+
+            $("#inputDateOfBirth").val(year + '-' + monthNames[monthIndex] + '-' + day);
         });
     </script>
 </th:block>
