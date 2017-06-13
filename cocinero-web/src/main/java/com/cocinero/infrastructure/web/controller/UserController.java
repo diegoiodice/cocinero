@@ -46,7 +46,7 @@ public class UserController extends AbstractController{
 
             Address addressWithId = addressRepository.create(address);
             User currentUser = userRepository.findById(ctx.pathParam("id"));
-            currentUser.getAddresses().add(addressWithId);
+            //currentUser.getAddresses().add(addressWithId);
             userRepository.save(currentUser);
 
             doRedirect(ctx,"/addresses/show/"+addressWithId.getId());

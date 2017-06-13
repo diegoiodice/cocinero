@@ -20,7 +20,7 @@ public class AbstractController implements WebController{
         }else{
             getFlashHandler().addError(ctx,"failure",failure.getMessage());
         }
-        doRedirect(ctx,ctx.normalisedPath());
+        doRedirect(ctx,ctx.request().getHeader("referer"));
     };}
 
     private void mapExceptions(RoutingContext ctx, ConstraintViolationException failure) {

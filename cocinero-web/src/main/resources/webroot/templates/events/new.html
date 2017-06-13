@@ -66,6 +66,8 @@
                     <input type="hidden" id="inputEventDate" name="eventDate" value="" />
                 </div>
 
+                <hr>
+
                 <div class="form-group">
                     <div class="col-lg-10 col-lg-offset-2">
                         <button type="reset" class="btn btn-default">Cancel</button>
@@ -84,6 +86,7 @@
         $(".form_datetime").datetimepicker({
             format: "dd MM yyyy - hh:ii",
             startDate: new Date(),
+            autoclose: true,
             minuteStep: 15
         });
     </script>

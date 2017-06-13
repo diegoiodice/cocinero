@@ -16,9 +16,4 @@ public class User {
     private final String id;
     private final String email;
     private final String password;
-    private final String names;
-    private final String lastNames;
-    private final Date dateOfBirth;
-    //private final List<Role> roles = new ArrayList<>();
-    private final List<Address> addresses = new ArrayList<>();
 }

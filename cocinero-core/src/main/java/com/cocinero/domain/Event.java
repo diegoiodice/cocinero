@@ -28,4 +28,11 @@ public class Event {
     private final Date created;
     private final Host host;
 
+    public Set<Attendant> getAttendants() {
+        return Collections.unmodifiableSet(attendants);
+    }
+
+    public void subscribe(Attendant attendant){
+
+    }
 }

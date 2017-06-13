@@ -2,9 +2,11 @@ package com.cocinero.domain;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 @Builder
+@EqualsAndHashCode
 public class Address {
 
     private final String id;
@@ -13,6 +15,4 @@ public class Address {
     private final String addressLine2;
     private final String city;
     private final String country;
-    private final String telephone;
-    private final String type;
 }

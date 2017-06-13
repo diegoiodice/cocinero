@@ -21,6 +21,9 @@
                 <div class="caption">
                     <h4 th:text="${event.name}">Name</h4>
                 </div>
+                <p>[[${#dates.format(event.eventDate, 'dd-MMM-yyyy')}]]</p>
+                <p>[[${#dates.format(event.eventDate, 'HH:mm')}]]</p>
+                <p><strong>£[[${event.amount}]]</strong></p>
                 <p>
                     <a th:href="${'/events/'+event.id}" class="btn btn-primary">More Info</a>
                     <a th:href="${'/events/'+event.id+'/subscribe'}" class="btn btn-success">Subscribe</a>

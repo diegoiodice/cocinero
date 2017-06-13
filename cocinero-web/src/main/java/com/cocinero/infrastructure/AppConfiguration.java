@@ -63,11 +63,6 @@ public class AppConfiguration {
         return objectMapper;
     }
 
-    @Bean
-    public DateTimeFormatter dateFormatter(){
-        return DateTimeFormatter.ISO_DATE_TIME;
-    }
-
     public boolean isDevActiveProfile(){
         return Arrays.asList(environment.getActiveProfiles()).contains("dev");
     }

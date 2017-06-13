@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@Builder
+@Builder(toBuilder = true)
 @EqualsAndHashCode(of = {"id"})
 public class Attendant {
 

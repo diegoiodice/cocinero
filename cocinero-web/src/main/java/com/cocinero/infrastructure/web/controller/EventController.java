@@ -24,8 +24,7 @@ import java.util.Date;
 @RequestMapping(path="/events")
 public class EventController extends AbstractController{
 
-    @Autowired
-    private DateTimeFormatter df;
+    private DateTimeFormatter df = DateTimeFormatter.ISO_DATE_TIME;
 
     @Autowired
     private EventRepository eventRepository;
@@ -66,7 +65,7 @@ public class EventController extends AbstractController{
                     .host(Host.builder().id(currentUser.getId()).build())
                     .build();
 
-            event.getAttendants().add(Attendant.builder().id(currentUser.getId()).build());
+            //event.getAttendants().add(Attendant.builder().id(currentUser.getId()).build());
 
             Event eventWithId = eventRepository.create(event);
 

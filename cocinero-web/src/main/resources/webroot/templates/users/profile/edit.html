@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.thymeleaf.org"
+      layout:decorate="~{${themePath}+'/layout.html'}">
+<head>
+    <title>Cocinero My Profile</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <th:block layout:fragment="css">
+        <link href="/public/css/bootstrap-datepicker3.min.css" rel="stylesheet" media="screen">
+    </th:block>
+</head>
+<body>
+<div class="container" layout:fragment="content">
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="well bs-component">
+                <form action="/userProfiles" method="post" class="form-horizontal">
+                    <fieldset>
+                        <legend>My Profile</legend>
+
+                        <div class="form-group">
+                            <label for="inputNames" class="col-lg-2 control-label">Name</label>
+                            <div class="col-lg-10">
+                                <input type="text" class="form-control" id="inputNames" name="names" placeholder="John Paul" th:value="${userProfile.names}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputLastNames" class="col-lg-2 control-label">Last Names</label>
+                            <div class="col-lg-10">
+                                <input type="text" class="form-control" id="inputLastNames" name="lastNames" placeholder="Smith Floyd" th:value="${userProfile.lastNames}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputTelephone" class="col-lg-2 control-label">Telephone</label>
+                            <div class="col-lg-10">
+                                <input type="text" class="form-control" id="inputTelephone" name="telephone" placeholder="Telephone" th:value="${userProfile.telephone}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputDateOfBirth" class="col-lg-2 control-label">Date of birth</label>
+
+                            <div class="input-group date col-lg-10" data-link-field="inputDateOfBirth" data-link-format="yyyy-m-dd">
+                                <input type="text" readonly th:value="${#dates.format(userProfile.dateOfBirth, 'dd-MM-yyyy')}" class="form-control">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                <input type="hidden" id="inputDateOfBirth" name="dateOfBirth" th:value="${#dates.format(userProfile.dateOfBirth,'yyyy-MM-dd')}" />
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="form-group">
+                            <div class="col-lg-10 col-lg-offset-2">
+                                <button type="reset" class="btn btn-default">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <input type="hidden" name="_method" value="PUT" />
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<th:block layout:fragment="script">
+    <script type="text/javascript" src="/public/js/bootstrap-datepicker.min.js" charset="UTF-8"></script>
+    <script type="text/javascript">
+        $(".input-group.date").datepicker({
+            format: {
+                toDisplay: function (date, format, language) {
+                    $("#inputDateOfBirth").val(date.toJSON().split('T')[0]);
+                    return date.toGMTString();
+                },
+                toValue: function (date, format, language) {
+                    return (new Date(date)).toJSON();
+                }
+            },
+            autoclose: true
+        });
+    </script>
+</th:block>
+</body>
+</html>
